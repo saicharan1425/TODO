@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export const TodoAy = () => {
-    const [todo,setTodo] = useState([{id:1,task:'todo - today complete',done:false,},{id:2, task:'Hmmmmm',done:false,}])
+    const [todo,setTodo] = useState([{id:1,task:'Hiiii',done:false,}])
     const [input,newInput] = useState('')
 
  
@@ -22,8 +22,6 @@ export const TodoAy = () => {
       setTodo(todo.map(
         (item) => {
             if(item.id == id){
-                console.log(item.id);
-
                return {...item,done: !item.done}
             }
             return item
@@ -34,6 +32,11 @@ export const TodoAy = () => {
     function newTask(e){
         newInput(e.target.value)
     }
+
+    function deleteTask(id){
+      setTodo(todo.filter((item) => item.id !== id))
+    }
+
 
     return( 
         <>  
@@ -57,7 +60,7 @@ export const TodoAy = () => {
             <h3>Done</h3>
               <ul>{todo.filter(item => item.done).map((item) => {
                 
-               return < li key={item.id} > <input type="checkbox" value={item.id} onChange={() =>markAs(item.id)} /> <span style={{textDecoration: item.done ? "line-through" : "none"}} >{item.task}</span></li>
+               return < li key={item.id} > <input type="checkbox" value={item.id} onChange={() =>markAs(item.id)} /> <span style={{textDecoration: item.done ? "line-through" : "none"}} >{item.task}</span><button style={{margin: " 0px 0px 0px 6px"}} onClick={()=> deleteTask(item.id)}>Delete</button> </li>
             })}</ul>
         </div>
         </>
